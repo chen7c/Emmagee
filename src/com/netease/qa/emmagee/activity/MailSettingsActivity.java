@@ -42,10 +42,11 @@ import com.netease.qa.emmagee.utils.EncryptData;
 
 /**
  * Mail Setting Page of Emmagee
- * 
+ * @students Team Six
  * @author andrewleo
  */
 public class MailSettingsActivity extends Activity {
+	//子类继承自Activity父类
 
 	private static final String LOG_TAG = "Emmagee-"
 			+ MailSettingsActivity.class.getSimpleName();
@@ -59,15 +60,16 @@ public class MailSettingsActivity extends Activity {
 	private String settingTempFile;
 	private String recipients, smtp;
 	private String[] receivers;
-	private TextView title;
+	private TextView title; 	//声明各种私有类，提高安全性
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		//创建类，新建Activity的运行入口
 		Log.i(LOG_TAG, "onCreate");
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.mail_settings);
-
+		setContentView(R.layout.mail_settings);//设置布局
+		//以下基本为布局中各类控件与Activity的绑定并进行强制类型转换
 		final EncryptData des = new EncryptData("emmagee");
 		Intent intent = this.getIntent();
 		settingTempFile = getBaseContext().getFilesDir().getPath()
@@ -83,7 +85,7 @@ public class MailSettingsActivity extends Activity {
 		LinearLayout layGoBack = (LinearLayout) findViewById(R.id.lay_go_back);
 		LinearLayout layBtnSet = (LinearLayout) findViewById(R.id.lay_btn_set);
 		
-		boolean floatingTag = true;
+		boolean floatingTag = true;//逻辑值标记，方便实现控制
 		
 		title.setText(R.string.mail_settings);
 
@@ -179,11 +181,13 @@ public class MailSettingsActivity extends Activity {
 
 	@Override
 	public void finish() {
+		//结束Activity，即关闭当前最前端的Activity
 		super.finish();
 	}
 
 	@Override
 	protected void onDestroy() {
+		//销毁Activity（手动或被系统销毁），即销毁相关活动进程，释放内存
 		super.onDestroy();
 	}
 

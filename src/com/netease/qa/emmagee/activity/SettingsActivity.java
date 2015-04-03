@@ -41,10 +41,11 @@ import com.netease.qa.emmagee.utils.EncryptData;
 
 /**
  * Setting Page of Emmagee
- * 
+ * @students Team Six
  * @author andrewleo
  */
 public class SettingsActivity extends Activity {
+	//子类继承自Activity父类
 
 	private static final String LOG_TAG = "Emmagee-" + SettingsActivity.class.getSimpleName();
 
@@ -57,16 +58,17 @@ public class SettingsActivity extends Activity {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		//创建类，新建Activity的运行入口
 		Log.i(LOG_TAG, "onCreate");
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.settings);
+		setContentView(R.layout.settings);//设置布局
 
 		Properties properties = new Properties();
 		final EncryptData des = new EncryptData("emmagee");
 		Intent intent = this.getIntent();
 		settingTempFile = getBaseContext().getFilesDir().getPath() + "\\EmmageeSettings.properties";
-
+		//以下基本为布局中各类控件与Activity的绑定并进行强制类型转换
 		chkFloat = (CheckBox) findViewById(R.id.floating);
 		tvTime = (TextView) findViewById(R.id.time);
 		about = (LinearLayout) findViewById(R.id.about);
@@ -172,11 +174,13 @@ public class SettingsActivity extends Activity {
 
 	@Override
 	public void finish() {
+		//结束Activity，即关闭当前最前端的Activity
 		super.finish();
 	}
 
 	@Override
 	protected void onDestroy() {
+		//销毁Activity（手动或被系统销毁），即销毁相关活动进程，释放内存
 		super.onDestroy();
 	}
 

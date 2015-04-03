@@ -50,10 +50,11 @@ import com.netease.qa.emmagee.R;
 
 /**
  * Main Page of Emmagee
- * 
+ * @students Team Six
  * @author andrewleo
  */
 public class MainPageActivity extends Activity {
+	//子类继承自Activity父类
 
 	private static final String LOG_TAG = "Emmagee-" + MainPageActivity.class.getSimpleName();
 
@@ -78,13 +79,14 @@ public class MainPageActivity extends Activity {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		//创建类，新建Activity的运行入口
 		Log.i(LOG_TAG, "MainActivity::onCreate");
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.mainpage);
-        initTitleLayout();
+		setContentView(R.layout.mainpage);//设置布局
+        initTitleLayout();//初始化Title布局
 		createNewFile();
-
+		//以下基本为布局中各类控件与Activity的绑定并进行强制类型转换
 		processInfo = new ProcessInfo();
 		btnTest.setOnClickListener(new OnClickListener() {
             @Override
@@ -149,6 +151,7 @@ public class MainPageActivity extends Activity {
 	}
 
     private void initTitleLayout() {
+    	//Title布局的相关内部实现
         go_back = (ImageView) findViewById(R.id.go_back);
         nb_title = (TextView) findViewById(R.id.nb_title);
         btn_set = (ImageView) findViewById(R.id.btn_set);
@@ -175,6 +178,7 @@ public class MainPageActivity extends Activity {
 
 	@Override
 	protected void onStart() {
+		//Activity开始类，生命周期流程中，位于onCreate之后，在Activity未被销毁前，关闭后再次打开均从此步开始循环
 		Log.d(LOG_TAG, "onStart");
 		receiver = new UpdateReceiver();
 		IntentFilter filter = new IntentFilter();
@@ -185,6 +189,7 @@ public class MainPageActivity extends Activity {
 
 	@Override
 	public void onResume() {
+		//位于onPause暂停类之后，在按下Home主页键后，重返Activity会直接执行onResume恢复类（前提也是未被销毁）
 		super.onResume();
 		Log.d(LOG_TAG, "onResume");
 		if (EmmageeService.isStop) {
@@ -256,8 +261,10 @@ public class MainPageActivity extends Activity {
 	 *         should continue to be propagated.
 	 */
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		//onKeyDown按键类，以下代码实现功能为：再按一次返回键退出，防止用户误按返回键而退出当前Activity
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
             if ((System.currentTimeMillis() - mExitTime) > 2000) {
+            	//此处为2s延时判断
                     Toast.makeText(this, R.string.quite_alert, Toast.LENGTH_SHORT).show();
                     mExitTime = System.currentTimeMillis();
             } else {
@@ -365,16 +372,19 @@ public class MainPageActivity extends Activity {
 
 	@Override
 	public void finish() {
+		//结束Activity，即关闭当前最前端的Activity
 		super.finish();
 	}
 
 	protected void onStop() {
+		//停止类，在按下返回键关闭Activity时执行
 		unregisterReceiver(receiver);
 		super.onStop();
 	}
 
 	@Override
 	protected void onDestroy() {
+		//销毁Activity（手动或被系统销毁），即销毁相关活动进程，释放内存
 		super.onDestroy();
 	}
 }
